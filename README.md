@@ -10,6 +10,6 @@ The course is worth 5-12 credits, and the content is the same as in the Full sta
 Partners and affiliates of the course include Houston Inc, Terveystalo, Elisa, K-ryhmä, Unity Technologies and Konecranes. See here for guest lectures on course-related topics given by various experts from our partners and affiliates.
 Participants are expected to have good programming skills, basic knowledge of web programming and databases, and to know the basics of working with the Git version-control system. You are also expected to have perseverance and the ability for independent problem solving and information seeking.
 
-##Part 0: Fundamentals of Web apps
+## Part 0: Fundamentals of Web apps
 General info
 Fundamentals of Web apps
