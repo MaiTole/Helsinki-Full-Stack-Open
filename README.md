@@ -11,15 +11,15 @@ Partners and affiliates of the course include Houston Inc, Terveystalo, Elisa, K
 Participants are expected to have good programming skills, basic knowledge of web programming and databases, and to know the basics of working with the Git version-control system. You are also expected to have perseverance and the ability for independent problem solving and information seeking.
 
 ## Part 0: Fundamentals of Web apps
-General info
-Fundamentals of Web apps
-Exercise 0.1-0.6: Creating three web sequence diagrams
+General info\
+Fundamentals of Web apps\
+Exercise 0.1-0.6: Creating three web sequence diagrams\
 
 ## Part 1: Introduction to React
-Introduction to React
-Javascript
-Component State, Event Handlers
-A more Complext State, Debugging React apps
-Exercise 1.1-1.5: Create a Webpage to Display Course Information Menu
-Exercise 1.6-1.11: Create an Interactive Webpage to Collect & Display customer feedback and Display real time statistics
-Exercise 1.12-1.14: Create a Webapge to Display Randomized Quotes based on User Feedback
+Introduction to React\
+Javascript\
+Component State, Event Handlers\
+A more Complext State, Debugging React apps\
+Exercise 1.1-1.5: Create a Webpage to Display Course Information Menu\
+Exercise 1.6-1.11: Create an Interactive Webpage to Collect & Display customer feedback and Display real time statistics\
+Exercise 1.12-1.14: Create a Webapge to Display Randomized Quotes based on User Feedback\
