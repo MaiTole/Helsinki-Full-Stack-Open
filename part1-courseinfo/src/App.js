@@ -7,7 +7,7 @@ const Header = (props) => {
 }
 const Part = (props) => {
   return (
-    <p1>{props.name}</p1>
+    <p>{props.name}</p>
   )
 }
 const Total = (props) => {
