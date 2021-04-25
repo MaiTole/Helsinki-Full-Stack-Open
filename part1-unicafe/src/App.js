@@ -1,22 +1,38 @@
 import React, { useState } from 'react';
 
-const Statistics = ({all, statsent, text}) => {
-  if (all === 0) {
-    return (
-      <div>
-        No feedback available
-      </div>
-    )
-  }
+const Statistics = ({allClicks, text, statsent}) => {
   return (
     <div>
         <tr>
-          <th>{text}</th>
+          <th>{text}</th><br/>
           <td>{statsent}</td>
         </tr>
     </div>
   ) 
 }
+
+const Statistic = ({good, bad, neutral, all, avg, pos}) => {
+  if (all === 0) {
+    return (
+    <div>
+      No feedback given
+    </div>
+    )
+  }
+  return (
+  <div>
+    <table>
+      <Statistics text = 'Good' statsent = {good} />
+      <Statistics text = 'Bad ' statsent = {bad} /> 
+      <Statistics text = 'Neutral ' statsent = {neutral} />
+      <Statistics text = 'All ' statsent = {all} />
+      <Statistics text = 'Average ' statsent={avg} />
+      <Statistics text = 'Positive ' statsent={pos}/>
+    </table>
+  </div>
+  )
+}
+
 
 const App = () => {
 
@@ -34,7 +50,7 @@ const App = () => {
   const averageClick = (good.gdpts+bad.badpts+neutral.neutpts)/3
   const positiveClick = good.gdclicks*100/(good.gdclicks+bad.badclicks+neutral.neutclicks) + '%'
   const allClicks = good.gdclicks+bad.badclicks+neutral.neutclicks
-
+  
   return (
     <div>
       <h1>Give Feedback</h1>
@@ -43,24 +59,12 @@ const App = () => {
       <Button handleClick={handleBadClick} text='Bad' />        
       <br />
       <h1>Statistics</h1>
+      <Statistic good={good.gdclicks} bad={bad.badclicks} neutral={neutral.neutclicks} all={allClicks} avg={averageClick} pos={positiveClick} />
       <table>
-      <Statistics all = {allClicks} text = 'Good' statsent = {good.gdclicks} /> 
-      <Statistics all = {allClicks} text = 'Bad' statsent = {bad.badclicks} /> 
-      <Statistics all = {allClicks} text = 'Neutral' statsent = {neutral.neutclicks} />
-      <Statistics all = {allClicks} text = 'All' statsent = {allClicks} />
-      <Statistics all = {allClicks} text = 'Average' statsent={averageClick} />
-      <Statistics all = {allClicks} text = 'Positive' statsent={positiveClick}/>
+      
       </table>
     </div>
 )
 }
-
-//<p1>Good {props.gdclicks}</p1><br />
-//<p1>Neutral {props.neutclicks}</p1><br />
-//<p1>Bad {props.badclicks}</p1><br />
-//<p1>All {props.allclicks}</p1><br />
-//<p1>Average {props.average}</p1><br />
-//<p1>Positive {props.positive} %</p1>
-//<Statistics all = {allClicks} gdclicks={good.gdclicks} badclicks={bad.badclicks} neutclicks = {neutral.neutclicks} allclicks = {allClicks} average={averageClick} positive={positiveClick}/>
 
 export default App;
