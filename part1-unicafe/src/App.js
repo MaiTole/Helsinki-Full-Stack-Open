@@ -23,8 +23,8 @@ const Statistic = ({good, bad, neutral, all, avg, pos}) => {
   <div>
     <table>
       <Statistics text = 'Good' statsent = {good} />
-      <Statistics text = 'Bad ' statsent = {bad} /> 
       <Statistics text = 'Neutral ' statsent = {neutral} />
+      <Statistics text = 'Bad ' statsent = {bad} /> 
       <Statistics text = 'All ' statsent = {all} />
       <Statistics text = 'Average ' statsent={avg} />
       <Statistics text = 'Positive ' statsent={pos}/>
