@@ -11,8 +11,6 @@ const App = () => {
   const [persons, setPersons] = useState([])
   const [newEntry, setNewEntry] = useState({newName: 'Emma Doe', newNumber: 88888888})
   const [searchFilter, setFilter] = useState('')
-  const [showAll, setShowAll] = useState(true)
-  const [listShown, setListShown] = useState(persons)
   const [errormessage, setErrorMessage] = useState(null)
   
   useEffect(() => {
@@ -20,10 +18,6 @@ const App = () => {
     .getall()
     .then(initialpersonslist => {setPersons(initialpersonslist)})
   },[persons])
-
-  React.useEffect(() => {
-    if (persons !== [] && showAll === true) {
-      setListShown(persons)}}, [persons, showAll])
 
   // Function to check if name exists in phonebook, and add entry to phonebook if not
   const addEntry = (event) => {
@@ -46,7 +40,7 @@ const App = () => {
     //Check if entry exists and alert user if so - deny duplicate entries
     else if ((persons.map(pax=>pax.name)).includes(newEntry.newName) & (persons.map(pax=>pax.number)).includes(newEntry.newNumber)) {
       window.alert(`${newEntry.newName} already exists in phonebook`)
-      setNewEntry({newName:'', newNumber: ''})
+      setNewEntry(newEntryState)
     }
     //Check if entry exists and number has changed - if so prompt for user confirmed before updating number in phonebook
     else if ((persons.map(pax=>pax.name)).includes(newEntry.newName)) {
@@ -60,6 +54,7 @@ const App = () => {
         setTimeout(() => {
           setErrorMessage(null)
         }, 3000)
+        setNewEntry(newEntryState)
       })
       .catch(error => {
         setErrorMessage(`Unable to perform operation as ${newEntry.newName}'s contact has already been deleted`)
@@ -75,25 +70,16 @@ const App = () => {
       .then(
         returnedEntry => {
         setPersons(persons.concat(returnedEntry))
-        setListShown(persons.concat(returnedEntry))
         setErrorMessage(`${newEntry.newName}'s contact was successfully added`)
         setTimeout(() => {
           setErrorMessage(null)
         }, 3000)
         setNewEntry(newEntryState)
-        setShowAll(true)
         }
       )   
     }
   }
 
-  //Function to filter and update value of setList based on filter applied
-  const filterSearch = (event) => {
-    const result = (event.target.value !== '') ? setShowAll(false) : setShowAll(true)
-    const filtered = persons.filter(pax => pax.name.includes(event.target.value))
-    console.log(filtered)
-    showAll ? setListShown(persons) : setListShown(filtered)
-  }
   // Function to handle input new name for addition to phonebook
   const handleNameChange = (event) => { 
   setNewEntry({...newEntry, newName: event.target.value});
@@ -108,7 +94,6 @@ const App = () => {
   }
 
   const handleDeletion = (event) => {
-    //const paxtoremove = persons.filter(pax=>pax.name.includes(event.target.name))
     const idtoremove = event.target.id
     if (window.confirm(`Do you want to delete ${event.target.name}'s contact?`) === true) {
       serviceList
@@ -116,7 +101,6 @@ const App = () => {
       .then(returnedlist => {
         console.log(returnedlist)
         setPersons(persons.filter((person)=> person.id !== idtoremove))
-        setListShown(persons.filter((person)=> person.id !== idtoremove))
         setErrorMessage(`${event.target.name}'s contact was successfully deleted`)
         setTimeout(() => {
           setErrorMessage(null)
@@ -135,7 +119,7 @@ const App = () => {
 return (
 <div>
   <h2>Phonebook</h2>
-  <form onChange={filterSearch}>
+  <form > 
   <Search searchFilter={searchFilter} handleFilterChange={handleFilterChange}/>
   </form>
   <Notification message={errormessage} />
@@ -144,7 +128,7 @@ return (
     <Newentry nameinput={newEntry.newName} numberinput={newEntry.newNumber} namehandler={handleNameChange} numhandler={handleNumberChange}/>
   </form>
   <h2>Numbers</h2>
-  <Phonebooklist list={listShown} handleDeletion={handleDeletion}/>
+  <Phonebooklist list={persons} handleDeletion={handleDeletion} searchFilter={searchFilter}/>
 </div>
 )
 }
