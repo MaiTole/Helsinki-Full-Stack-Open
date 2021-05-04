@@ -25,3 +25,14 @@ A more Complext State, Debugging React apps\
 Exercise 1.1-1.5: Create a Webpage to Display Course Information Menu\
 Exercise 1.6-1.11: Create an Interactive Webpage to Collect & Display customer feedback and Display real time statistics\
 Exercise 1.12-1.14: Create a Webapge to Display Randomized Quotes based on User Feedback\
+
+## Part 2: Communicating with Server
+Rendering a collection, modules\
+Forms\
+Getting data from server\
+Altering data in server\
+Adding styles to React App\
+
+Exercise 2.1 - 2.5: Create a Webpage to Display Course Information Menu\
+Exercise 2.6 - 2.11, 2.15-2.20: Create an Interactive Webpage to Display Country information based on JSON\
+Exercise 2.12-2.14: Create an Interactive Webapp allowing users to Add, Edit, and Delete entries using a JSON server\
