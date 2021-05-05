@@ -48,7 +48,6 @@ const App = () => {
       serviceList
       .update(idtoupdate, nameObject)
       .then(returnedentry => {
-        console.log(returnedentry)
         setPersons(persons.filter(pax => pax.id !== idtoupdate ? pax : returnedentry))
         setErrorMessage(`${newEntry.newName}'s number was successfully updated`)
         setTimeout(() => {
@@ -99,7 +98,6 @@ const App = () => {
       serviceList
       .remove(idtoremove) 
       .then(returnedlist => {
-        console.log(returnedlist)
         setPersons(persons.filter((person)=> person.id !== idtoremove))
         setErrorMessage(`${event.target.name}'s contact was successfully deleted`)
         setTimeout(() => {
