@@ -52,10 +52,10 @@ app.get('/api/persons/:id', (request,response,next) => {
 app.get('/api/info', (request,response) => {
   Contact.countDocuments()
     .then(numofpersons =>
-    response.send(
-      `<p1>Phonebook has info for ${numofpersons} people <br/> </p1> 
-      <br/> 
-      <p1>${new Date()}</p1>`)
+      response.send(
+        `<p1>Phonebook has info for ${numofpersons} people <br/> </p1> 
+        <br/> 
+        <p1>${new Date()}</p1>`)
     )
 })
 
@@ -68,7 +68,7 @@ app.delete('/api/persons/:id', (request, response, next) => {
       response.status(204).end()
     })
     .catch(error => next(error))
-    })
+})
 
 //++++++++++++++ ADD NEW CONTACT TO PHONEBOOK ++++++++++++++++//
 
@@ -91,11 +91,11 @@ app.post('/api/persons', (request, response, next) => {
       response.json(savedPax)
     })
     .catch(error => next(error))
-  })
+})
 
 //++++++++++++++ UPDATE EXISTING CONTACT INFO ++++++++++++++++//
 
-  app.put('/api/persons/:id', (request, response, next) => {
+app.put('/api/persons/:id', (request, response, next) => {
   const body = request.body
 
   const newContact = {
@@ -103,31 +103,31 @@ app.post('/api/persons', (request, response, next) => {
     number: body.number
   }
 
-    Contact.findByIdAndUpdate(request.params.id, newContact, {new: true})
-      .then(updatedContact => {
-        response.json(updatedContact)
-      })
-      .catch(error => next(error))
-      })
+  Contact.findByIdAndUpdate(request.params.id, newContact, {new: true})
+    .then(updatedContact => {
+      response.json(updatedContact)
+    })
+    .catch(error => next(error))
+})
 
 //++++++++++++++ ERROR HANDLING MIDDLEWARE ++++++++++++++++//
 
-  const errorHandler = (error, request, response, next) => {
-    console.error(error.message)
+const errorHandler = (error, request, response, next) => {
+  console.error(error.message)
 
-    if ((error.name) === "CastError") {
-      return response.status(400).send({error: "malformatted id"})
-    }
-    else if (error.name === 'ValidationError') {
-      return response.status(400).json({ error: error.message })
-    }
-
-    next(error)
+  if ((error.name) === 'CastError') {
+    return response.status(400).send({error: 'malformatted id'})
+  }
+  else if (error.name === 'ValidationError') {
+    return response.status(400).json({ error: error.message })
   }
 
-  app.use(errorHandler)
+  next(error)
+}
 
-  const PORT = process.env.PORT
-  app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`)
-  })
+app.use(errorHandler)
+
+const PORT = process.env.PORT
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`)
+})
