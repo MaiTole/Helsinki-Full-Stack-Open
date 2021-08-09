@@ -6,12 +6,7 @@ const cors = require('cors')
 const Contact = require('./models/persons')
 const { response } = require('express')
 
-//const mongoose = require('mongoose')
-
 const password = process.argv[2]
-
-//const url = `mongodb+srv://user1:${password}@cluster0.n0hb2.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`
-//mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, useCreateIndex: true })
 
 app.use(cors())
 
@@ -26,36 +21,6 @@ morgan.token('content', function getName (req) {
 
 app.use(express.json(), express.static('build'), morgan(':method :url :status :res[content-length] - :response-time ms :content'),cors())
 
-/* let persons = [
-    {
-        id: 1,
-        name: "Arto Hellas",
-        number: "040-123456"
-    },
-    {
-        id: 2,
-        name: "Ada Lovelace",
-        number: "39-44-5323523"
-    },
-    {
-        id: 3,
-        name: "Dan Abramov",
-        number: "12-43-234345"
-    },
-    {
-        id: 4,
-        name: "Mary Poppendick",
-        number: "39-23-6423122"
-    }
-] */
-
-/* const contactSchema = new mongoose.Schema({
-  name: String,
-  number: Number,
-}) */
-
-//const Contact = mongoose.model('Contact', contactSchema)
-
 //++++++++++++++ GET INDEX PAGE AND FULL LIST OF CONTACTS ++++++++++++++++//
 
 
@@ -65,25 +30,12 @@ app.get('/', (request, response) => {
 
 app.get('/api/persons', (request,response) => {
   Contact.find({}).then(result => {
-    //result.forEach(contact => {
     response.json(result)
   })
 })
-    //response.json(persons)
-//})
+
 
 //++++++++++++++ GET INIDIVIDUAL CONTACT BASED ON ID ++++++++++++++++//
-
-/* app.get('/api/persons/:id', (request,response) => {
-    const id = Number(request.params.id)
-    const person = persons.find(pax => pax.id === id)
-
-  if (person) {
-      response.json(person)
-    } else {
-      response.status(404).end()
-    }
-  }) */
 
 app.get('/api/persons/:id', (request,response,next) => {
   Contact.find({'_id': request.params.id})
@@ -97,14 +49,6 @@ app.get('/api/persons/:id', (request,response,next) => {
 
 //++++++++++++++ GET INFO ON NUMBER OF CONTACTS ++++++++++++++++//
 
-/* app.get('/api/info', (request,response) => {
-    const numofpersons = persons.length
-    response.send(
-        `<p1>Phonebook has info for ${numofpersons} people <br/> </p1> 
-        <br/> 
-        <p1>${new Date()}</p1>`)
-}) */
-
 app.get('/api/info', (request,response) => {
   Contact.countDocuments()
     .then(numofpersons =>
@@ -116,13 +60,6 @@ app.get('/api/info', (request,response) => {
 })
 
 //++++++++++++++ DELETE SPECIFIC CONTACT ENTRY ++++++++++++++++//
-
-/* app.delete('/api/persons/:id', (request, response) => {
-    const id = Number(request.params.id)
-    persons = persons.filter(pax => pax.id !== id)
-  
-    response.status(204).end()
-  }) */
 
 app.delete('/api/persons/:id', (request, response, next) => {
   //const id = Number(request.params.id)
@@ -143,17 +80,11 @@ app.post('/api/persons', (request, response, next) => {
       error: 'name and number must both be provided'
     })
   }
-    /*if(persons.map(p => p.name).includes(body.name)) {
-      return response.status(400).json({
-        error: 'name must be unique'
-      })
-    } */
+
   const pax = new Contact({
-      //id: Math.round(Math.random()*10000),
     name: body.name,
     number: body.number
   })
-  //persons = persons.concat(pax) //Cannot use concat, need to add to MongoDB instead
     
   pax.save()
     .then(savedPax => {
@@ -196,7 +127,7 @@ app.post('/api/persons', (request, response, next) => {
 
   app.use(errorHandler)
 
-  const PORT = process.env.PORT //|| 3001
+  const PORT = process.env.PORT
   app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`)
   })
